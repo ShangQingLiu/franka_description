@@ -28,14 +28,13 @@
             arm_prefix:=''
             robot_type:='fr3v2_1'
             xyz_ee:='0 0 0'
-            rpy_ee:='0 0 0'
+            rpy_ee:='0 0 -0.7853982'
             description_pkg:='franka_description'">
 
     <!--
-      Attachment joint: arm flange (link8) → ur_to_robotiq_link.
-      The xyz/rpy values should come from the USD joint
-      fr3v2_link8/fr3v2_ur_to_robotiq_joint — pass them via xyz_ee/rpy_ee
-      or leave at 0 0 0 if the USD joint has zero offset.
+      Attachment joint: arm flange (link8) → fr3v2_ur_to_robotiq_link.
+      rpy_ee default -π/4 comes from the fr3v2_link8/fr3v2_ur_to_robotiq_joint
+      in the USD — the UR coupling is rotated −45° about Z relative to the flange.
     -->
     <joint name="${arm_prefix}${robot_type}_ur_to_robotiq_joint" type="fixed">
       <parent link="${connected_to}"/>
