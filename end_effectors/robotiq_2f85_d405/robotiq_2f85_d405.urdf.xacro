@@ -29,7 +29,8 @@
             robot_type:='fr3v2_1'
             xyz_ee:='0 0 0'
             rpy_ee:='0 0 -0.7853982'
-            description_pkg:='franka_description'">
+            description_pkg:='franka_description'
+            fingertip_style:='standard'">
 
     <!--
       Attachment joint: arm flange (link8) → fr3v2_ur_to_robotiq_link.
@@ -43,7 +44,7 @@
     </joint>
 
     <!-- All gripper + camera links and joints (prefixed for dual-arm safety) -->
-    <xacro:robotiq_2f85_d405_kinematics arm_prefix="${arm_prefix}" description_pkg="${description_pkg}"/>
+    <xacro:robotiq_2f85_d405_kinematics arm_prefix="${arm_prefix}" description_pkg="${description_pkg}" fingertip_style="${fingertip_style}"/>
 
   </xacro:macro>
 

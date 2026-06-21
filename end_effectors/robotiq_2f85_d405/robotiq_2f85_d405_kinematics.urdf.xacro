@@ -15,7 +15,8 @@
   -->
   <xacro:macro name="robotiq_2f85_d405_kinematics"
                params="arm_prefix:=''
-                       description_pkg:='franka_description'">
+                       description_pkg:='franka_description'
+                       fingertip_style:='standard'">
 
     <!-- ── Links ─────────────────────────────────────────── -->
     <link name="${arm_prefix}fr3v2_ur_to_robotiq_link">
@@ -95,19 +96,35 @@
 
     <link name="${arm_prefix}robotiq_85_left_finger_tip_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_left_finger_tip_link.stl"/>
-        </geometry>
+        <xacro:if value="${fingertip_style == 'aloha'}">
+          <origin xyz="0 0 0" rpy="1.5707963 0 -1.5707963"/>
+          <geometry>
+            <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_left_finger_tip_link_aloha.stl"/>
+          </geometry>
+        </xacro:if>
+        <xacro:unless value="${fingertip_style == 'aloha'}">
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_left_finger_tip_link.stl"/>
+          </geometry>
+        </xacro:unless>
       </visual>
     </link>
 
     <link name="${arm_prefix}robotiq_85_right_finger_tip_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_right_finger_tip_link.stl"/>
-        </geometry>
+        <xacro:if value="${fingertip_style == 'aloha'}">
+          <origin xyz="0 0 0" rpy="1.5707963 0 -1.5707963"/>
+          <geometry>
+            <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_right_finger_tip_link_aloha.stl"/>
+          </geometry>
+        </xacro:if>
+        <xacro:unless value="${fingertip_style == 'aloha'}">
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://${description_pkg}/meshes/end_effectors/robotiq_2f85_d405/robotiq_85_right_finger_tip_link.stl"/>
+          </geometry>
+        </xacro:unless>
       </visual>
     </link>
 

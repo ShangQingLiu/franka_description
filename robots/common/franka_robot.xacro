@@ -23,6 +23,7 @@
                       no_prefix:='false'
                       arm_prefix:=''
                       description_pkg:='franka_description'
+                      fingertip_style:='standard'
                       connected_to:='base'
                       is_async:=false
                       thread_priority:=50">
@@ -84,6 +85,7 @@
         xyz_ee="${xyz_ee}"
         rpy_ee="${rpy_ee}"
         description_pkg="${description_pkg}"
+        fingertip_style="${fingertip_style}"
       />
     </xacro:if>
 

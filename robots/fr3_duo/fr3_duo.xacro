@@ -32,7 +32,8 @@
             no_prefix:=false
             is_async:=false
             thread_priority:=50
-            is_mobile_fr3_duo:=false">
+            is_mobile_fr3_duo:=false
+            fingertip_style:='standard'">
 
     <xacro:property name="robot_types_list" value="${robot_types}"/>
     <xacro:property name="robot_ips_list" value="${robot_ips}"/>
@@ -89,6 +90,7 @@
           no_prefix="${no_prefix}"
           arm_prefix="${modified_prefix}"
           description_pkg="${description_pkg}"
+          fingertip_style="${fingertip_style}"
           connected_to="${arm_prefixes_list[i]}_base"
           is_async="${is_async}"
           thread_priority="${thread_priority}">

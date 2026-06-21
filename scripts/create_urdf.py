@@ -22,7 +22,7 @@ def str_to_bool(s):
     return s.lower() in ['true', '1', 'yes', 'y']
 
 
-def convert_xacro_to_urdf(xacro_file, only_ee, with_sc, ee_id, hand, no_prefix, robot):
+def convert_xacro_to_urdf(xacro_file, only_ee, with_sc, ee_id, hand, no_prefix, robot, fingertip_style='standard'):
     """Convert xacro file into a URDF file."""
     mappings = {
         'with_sc': str(with_sc),
@@ -30,6 +30,7 @@ def convert_xacro_to_urdf(xacro_file, only_ee, with_sc, ee_id, hand, no_prefix, 
         'hand': str(hand),
         'no_prefix': str(no_prefix),
         'robot_type': str(robot),
+        'fingertip_style': str(fingertip_style),
     }
 
     if only_ee and robot == '':
@@ -57,10 +58,11 @@ def urdf_generation(
     NO_PREFIX,
     robot,
     description_type='urdf',
+    fingertip_style='standard',
 ):
     """Generate URDF file and save it."""
     xacro_file = os.path.join(package_path, xacro_file)
-    urdf_file = convert_xacro_to_urdf(xacro_file, ONLY_EE, WITH_SC, EE, HAND, NO_PREFIX, robot)
+    urdf_file = convert_xacro_to_urdf(xacro_file, ONLY_EE, WITH_SC, EE, HAND, NO_PREFIX, robot, fingertip_style)
     if ABSOLUTE_PATHS and (HOST_DIR is None or HOST_DIR == ''):
         urdf_file = convert_package_name_to_absolute_path(package_name, package_path, urdf_file)
     elif ABSOLUTE_PATHS:
@@ -139,6 +141,12 @@ if __name__ == '__main__':
         action='store_const',
         const=True,
     )
+    parser.add_argument(
+        '--fingertip-style',
+        type=str,
+        default='standard',
+        help='Fingertip style for robotiq_2f85_d405 gripper (standard or aloha).',
+    )
 
     args = parser.parse_args()
 
@@ -150,6 +158,7 @@ if __name__ == '__main__':
     HOST_DIR = args.host_dir
     ONLY_EE = args.only_ee if args.only_ee is not None else False
     NO_PREFIX = args.no_prefix if args.no_prefix is not None else 'false'
+    FINGERTIP_STYLE = args.fingertip_style
 
     assert (
         ROBOT_MODEL in ROBOTS or ROBOT_MODEL == 'all' or ROBOT_MODEL == 'none' or ROBOT_MODEL == ''
@@ -177,6 +186,7 @@ if __name__ == '__main__':
             HAND,
             NO_PREFIX,
             robot_prefix,
+            fingertip_style=FINGERTIP_STYLE,
         )
     else:
         if ROBOT_MODEL == 'none' or ROBOT_MODEL == '':
@@ -198,8 +208,9 @@ if __name__ == '__main__':
                         continue
                     xacro_file = f'robots/{robot}/{robot}.{description_type}.xacro'
                     if HAND and EE != 'none' and robot != 'tmrv0_2':
-                        print(f'\n*** Creating {description_type} for {robot} and {EE} ***')
-                        file_name = f'{robot}_{EE}'
+                        suffix = f'_{FINGERTIP_STYLE}' if FINGERTIP_STYLE != 'standard' else ''
+                        print(f'\n*** Creating {description_type} for {robot} and {EE}{suffix} ***')
+                        file_name = f'{robot}_{EE}{suffix}'
                     else:
                         if not HAND or robot == 'tmrv0_2':
                             print(
@@ -218,5 +229,6 @@ if __name__ == '__main__':
                         HAND,
                         NO_PREFIX,
                         robot,
-                        description_type,
+                        description_type=description_type,
+                        fingertip_style=FINGERTIP_STYLE,
                     )

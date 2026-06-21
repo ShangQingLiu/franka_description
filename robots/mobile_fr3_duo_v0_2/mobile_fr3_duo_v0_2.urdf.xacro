@@ -75,6 +75,9 @@
   <!-- Should the arms be used? -->
   <xacro:arg name="use_arms" default="true"/>
 
+  <!-- Fingertip style for robotiq_2f85_d405: 'standard' or 'aloha' -->
+  <xacro:arg name="fingertip_style" default="standard"/>
+
   <xacro:mobile_fr3_duo_v0_2
     robot_types="$(arg robot_types)"
     hand="$(arg hand)"
@@ -89,6 +92,7 @@
     connected_to="$(arg connected_to)"
     use_arms="$(arg use_arms)"
     no_prefix="$(arg no_prefix)"
+    fingertip_style="$(arg fingertip_style)"
     ee_id="$(arg ee_id)"
     special_connection="$(arg special_connection)"
     xyz_ee="$(arg xyz_ee)"
