@@ -15,7 +15,7 @@
   <xacro:arg name="hand" default="true"/>
 
   <!-- Which end-effector would be mounted at the flange?" -->
-  <xacro:arg name="ee_id" default="franka_hand"/>
+  <xacro:arg name="ee_id" default="robotiq_2f85_d405"/>
 
   <!-- Where is the end-effector connected to, if different from the robot flange?  -->
   <xacro:arg name="special_connection" default=""/>
