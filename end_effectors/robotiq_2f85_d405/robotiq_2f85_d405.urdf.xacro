@@ -43,7 +43,7 @@
     </joint>
 
     <!-- All gripper + camera links and joints (prefixed for dual-arm safety) -->
-    <xacro:robotiq_2f85_d405_kinematics arm_prefix="${arm_prefix}"/>
+    <xacro:robotiq_2f85_d405_kinematics arm_prefix="${arm_prefix}" description_pkg="${description_pkg}"/>
 
   </xacro:macro>
 
